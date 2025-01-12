@@ -1,4 +1,4 @@
-/* 백준 1021: 회전하는 큐
+/** 백준 1021: 회전하는 큐 (덱/실버3)
  *
  * 양방향 순환 큐 (= 원형 큐)
  * 연산1: 1번째 원소 뽑기 -> 맨 앞 원소 제거 (FIFO)
@@ -6,7 +6,7 @@
  * 연산3: 오른쪽으로 한 칸 이동 -> 맨 뒤 원소를 맨 앞으로
  */
 
-// input(int): 큐 길이, 뽑는 개수 / 뽑을 index (1부터 시작)
+// input(int, int, int list): 큐 길이, 뽑는 개수, 뽑을 index list (1부터 시작)
 // output(int): 연산2와 연산3가 최소 필요한 횟수
 function solution(N, M, dataList) {
     let answer = 0;
