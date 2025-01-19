@@ -110,7 +110,7 @@ for (let t = 0; t < T; t++) {
     for (let i = 0; i < K; i++) {
         const [x, y] = input[idx++].split(' ').map(Number);
 
-        // 배추가 심어진 위치를 뒤집어서 리스트에 추가!!
+        // 배추가 심어진 위치를 리스트에 추가!!
         dataList.push([x, y]);
     }
 
