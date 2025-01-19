@@ -37,7 +37,7 @@ function solution(N) {
 // 입력
 const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
 
-// 첫째 줄에서 입력한 값 (정수 1개
+// 첫째 줄에서 입력한 값 (정수 1개)
 const N = parseInt(input[0]);
 
 // 출력
