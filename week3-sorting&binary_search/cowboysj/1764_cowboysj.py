@@ -1,19 +1,13 @@
 import sys
+input = sys.stdin.read
 
-input = sys.stdin.readline
+data = input().splitlines()
+N, M = map(int, data[0].split())
+heard = set(data[1:N+1])  # 듣도 못한 사람
+seen = set(data[N+1:])    # 보도 못한 사람
 
-n, m = map(int, input().split())
+# 교집합 구하기
+result = sorted(heard & seen)
 
-arr1 = []
-arr2 = []
-for i in range(n):
-    x = input()
-    arr1.append(x)
-for i in range(m):
-    y = input()
-    arr2.append(y)
-
-answer = list(set(arr1) & set(arr2))
-answer.sort()
-print(len(answer))
-print(''.join(answer), end = '')
+print(len(result))
+print('\n'.join(result))
