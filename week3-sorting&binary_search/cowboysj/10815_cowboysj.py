@@ -1,20 +1,12 @@
 import sys
+input = sys.stdin.read
 
-N = int(sys.stdin.readline())
-cards = sorted(list(map(int, sys.stdin.readline().split())))
-M = int(sys.stdin.readline())
-checks = list(map(int, sys.stdin.readline().split()))
+data = input().splitlines()
+N = int(data[0])
+cards = set(map(int, data[1].split()))
+M = int(data[2])
+checks = list(map(int, data[3].split()))
 
-for check in checks:
-    low, high = 0, N - 1
-    exist = False
-    while low <= high:
-        mid = (low + high) // 2
-        if cards[mid] > check:
-            high = mid - 1
-        elif cards[mid] < check:
-            low = mid + 1
-        else:
-            exist = True
-            break
-    print(1 if exist else 0, end=' ')
+result = [1 if check in cards else 0 for check in checks]
+
+print(' '.join(map(str, result)))
