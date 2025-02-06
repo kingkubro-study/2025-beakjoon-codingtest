@@ -6,6 +6,8 @@
  * 
  * 도시 X부터 출발했을 때, 최단 거리가 K인 모든 도시들 번호 출력
  */
+
+/** 풀이1: BFS (메모리 299104 KB,  시간 5140 ms) */
 // input(int, int, int, int list): // 도시 개수, 도로 개수, 도달 거리, 출발 도시, 도로 정보 리스트
 // output(int):  출발 도시 X로부터 최단 거리가 K인 도시 리스트
 function solution(N, M, K, X, dataList) {
@@ -76,5 +78,9 @@ for (let m = 0; m < M; m++) {
 }
 
 // 출력
-// 각 테스트 케이스에 대해 solution 함수 호출
 solution(N, M, K, X, dataList);
+
+
+
+
+/** 풀이2: 다익스트라 (메모리  KB,  시간  ms) */
