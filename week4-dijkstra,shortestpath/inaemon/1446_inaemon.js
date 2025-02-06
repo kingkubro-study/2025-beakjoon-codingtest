@@ -27,7 +27,7 @@ function solution(N, D, dataList) {
     // 지름길 거리 정보 추가
     for (let i=0; i<N; i++) {
         // 지름길 정보
-        [start, end, len] = dataList[i];
+        const [start, end, len] = dataList[i];
         
         // start-th 노드에서 end-th 노드로 가는 거리를 len으로 초기화
         if (end <= D) {
