@@ -7,6 +7,104 @@
  */
 // input(int, int, int list, int, int):  도시 개수, 버스 개수, 버스 정보(시작위치/도착위치/비용), 최초출발지, 최종목적지
 // output(int):  최소 비용
+/** 풀이1: 메모리	69952 KB, 시간 468 ms (다익스트라&visit배열)*/
+function solution(N, M, dataList, S, E) {
+  let answer = 0; // 최소 비용 마지막에 바꿀거니깐 let으로 선언
+  const INF = Infinity;
+  const startNode = S; // 출발점(시작노드번호)
+
+  // graph 초기화: 1 x (M+1) 크기의 행렬
+  const graph = Array.from({ length: N + 1 }, () => []);
+
+  // 비용 배열 초기화: INF로 채우기
+  const cost = Array(N + 1).fill(INF);
+  const visited = Array(N + 1).fill(false); // queue 대신 visited 이용
+
+  // 버스 정보 추가
+  for (let i = 0; i < M; i++) {
+    // 버스 정보
+    const [depart, dest, c] = dataList[i];
+
+    // depart-th 노드에서 dest-th 노드로 가는 비용을 c로 초기화
+    graph[depart].push([dest, c]);
+  }
+
+  // 다익스트라 알고리즘
+  cost[startNode] = 0; // 출발점(시작노드번호)은 비용 0에서 시작
+
+  for (let i = 0; i < N; i++) {
+    // i번째 최소 비용, 최소 비용을 가진 노드
+    let minCost = INF;
+    let minNode = -1;
+
+    // 최소 비용 찾기: 큐 대신
+    for (let j = 1; j <= N; j++) {
+      if (!visited[j]) {
+        if (cost[j] < minCost) {
+          minCost = cost[j];
+          minNode = j;
+        }
+      }
+    }
+
+    if (minNode === -1) break;
+
+    // 방문
+    visited[minNode] = true;
+
+    // 방문한 노드의 인접 노드 탐색
+    for (const [minNode2, minCost2] of graph[minNode]) {
+      // v까지의 최소 비용 = u까지의 비용 + u와 v사이의 비용
+      const c = minCost + minCost2; // cost[minNode] + minCost2 도 OK
+
+      // cost[v]에 더 큰 비용(초기값 INF 포함)이 있다면
+      if (cost[minNode2] > c) {
+        // 최소 비용으로 초기화
+        cost[minNode2] = c;
+      }
+    }
+  }
+
+  // 도착점 E까지의 최소 비용
+  answer = cost[E];
+
+  return answer;
+}
+
+// 입력
+const input = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+
+// index는 계속 바꿔야하니깐 let으로 선언해야 함. const로 선언하면 런타임 에러 발생
+let row = 0;
+
+// 첫째 줄에서 입력한 값 (정수 1개: 도시 개수 N)
+const N = parseInt(input[row++]);
+
+// 둘째 줄에서 입력한 값 (정수 1개: 버스 개수 M)
+const M = parseInt(input[row++]);
+
+const dataList = [];
+
+// 버스 M만큼 반복
+for (let i = 0; i < M; i++) {
+  // 행
+  // 출발도시, 도착도시, 버스비용
+  const [departure, destination, cost] = input[row++].split(" ").map(Number);
+  dataList.push([departure, destination, cost]);
+}
+
+// 마지막 줄에서 입력한 값 (정수 2개: 출발도시, 목적도시)
+const [S, E] = input[row++].split(" ").map(Number);
+
+// 출력
+console.log(solution(N, M, dataList, S, E));
+
+/** 풀이2: 메모리 초과 (1446과 동일한 풀이, 다익스트라&우선순위 큐) */
+/*
 function solution(N, M, dataList, S, E) {
   let answer = 0; // 최소 비용 마지막에 바꿀거니깐 let으로 선언
   const INF = Infinity;
@@ -68,35 +166,4 @@ function solution(N, M, dataList, S, E) {
 
   return answer;
 }
-
-// 입력
-const input = require("fs")
-  .readFileSync("/dev/stdin")
-  .toString()
-  .trim()
-  .split("\n");
-
-// index는 계속 바꿔야하니깐 let으로 선언해야 함. const로 선언하면 런타임 에러 발생
-let row = 0;
-
-// 첫째 줄에서 입력한 값 (정수 1개: 도시 개수 N)
-const N = parseInt(input[row++]);
-
-// 둘째 줄에서 입력한 값 (정수 1개: 버스 개수 M)
-const M = parseInt(input[row++]);
-
-const dataList = [];
-
-// 버스 M만큼 반복
-for (let i = 0; i < M; i++) {
-  // 행
-  // 출발도시, 도착도시, 버스비용
-  const [departure, destination, cost] = input[row++].split(" ").map(Number);
-  dataList.push([departure, destination, cost]);
-}
-
-// 마지막 줄에서 입력한 값 (정수 2개: 출발도시, 목적도시)
-const [S, E] = input[row++].split(" ").map(Number);
-
-// 출력
-console.log(solution(N, M, dataList, S, E));
+*/
