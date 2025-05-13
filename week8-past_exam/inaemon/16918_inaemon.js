@@ -94,7 +94,7 @@ let idx = 0;
 // 첫째 줄에서 입력한 값 (정수 3개)
 const [R, C, N] = input[idx++].split(" ").map(Number);
 
-// 둘째~줄에서 입력한 값 (정수 R개)
+// 둘째~줄에서 입력한 값 (문자열 R줄)
 const matrix = [];
 for(let i=0; i<R; i++) {
   const row = input[idx++].split("");
